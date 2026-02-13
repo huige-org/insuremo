@@ -1,5 +1,9 @@
 {
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "outputDirectory": "dist"
+  "functions": {
+    "dist/api/index.js": {
+      "runtime": "@vercel/node@3.0.0"
+    }
+  }
 }
