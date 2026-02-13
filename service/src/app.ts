@@ -125,19 +125,19 @@ if (!isVercel) {
   );
 }
 
-app.get('/health', (_req, res) => {
+app.get("/health", (_req, res) => {
   res.status(200).json({
-    status: 'healthy',
+    status: "healthy",
     timestamp: new Date().toISOString(),
     environment: env.NODE_ENV,
-    version: '1.0.0',
+    version: "1.0.0",
     vercel: !!process.env.VERCEL,
   });
 });
 
-app.get('/test', (_req, res) => {
+app.get("/test", (_req, res) => {
   res.status(200).json({
-    message: 'Vercel deployment test successful',
+    message: "Vercel deployment test successful",
     timestamp: new Date().toISOString(),
   });
 });
