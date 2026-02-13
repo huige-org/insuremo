@@ -203,3 +203,6 @@ if (!isVercel) {
 }
 
 export default app;
+
+// Vercel serverless function handler
+export const handler = app;
