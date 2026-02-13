@@ -22,16 +22,13 @@ import routes from "./routes";
 
 const app: Application = express();
 
-// Handle Vercel serverless environment
 const isVercel = !!process.env.VERCEL;
 
-// Initialize connections - 在Vercel环境下延迟初始化
 if (!isVercel) {
   createSupabaseClient();
   createRedisClient();
 }
 
-// Security middleware
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -69,23 +66,15 @@ app.use(
   })
 );
 
-// Body parsing
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Compression
 app.use(compression());
 
-// Request ID
 app.use(requestId);
-
-// Request logging
 app.use(requestLogger);
-
-// Rate limiting
 app.use(rateLimiter);
 
-// Swagger documentation
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
@@ -133,7 +122,6 @@ app.use(
   })
 );
 
-// Health check
 app.get('/health', (_req, res) => {
   res.status(200).json({
     status: 'healthy',
@@ -144,7 +132,6 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// Simple test endpoint
 app.get('/test', (_req, res) => {
   res.status(200).json({
     message: 'Vercel deployment test successful',
@@ -152,16 +139,11 @@ app.get('/test', (_req, res) => {
   });
 });
 
-// API routes
 app.use(env.API_PREFIX, routes);
 
-// 404 handler
 app.use(notFoundHandler);
-
-// Error handler
 app.use(errorHandler);
 
-// Start server - Vercel环境下不启动独立服务器
 if (!isVercel) {
   const PORT = parseInt(env.PORT, 10);
 
@@ -170,7 +152,6 @@ if (!isVercel) {
     logger.info(`API Documentation: http://localhost:${PORT}/api-docs`);
   });
 
-  // Graceful shutdown
   const gracefulShutdown = async (signal: string): Promise<void> => {
     logger.info(`${signal} received. Starting graceful shutdown...`);
 
@@ -186,7 +167,6 @@ if (!isVercel) {
       }
     });
 
-    // Force shutdown after 30 seconds
     setTimeout(() => {
       logger.error("Forced shutdown due to timeout");
       process.exit(1);
@@ -196,7 +176,6 @@ if (!isVercel) {
   process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
   process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 
-  // Handle uncaught errors
   process.on("uncaughtException", (error) => {
     logger.error("Uncaught Exception:", error);
     gracefulShutdown("UNCAUGHT_EXCEPTION");
@@ -208,14 +187,6 @@ if (!isVercel) {
   });
 } else {
   logger.info("Running in Vercel environment");
-  // 在Vercel环境下，连接将在首次请求时建立
 }
 
 export default app;
-
-// Vercel serverless function handler - only in Vercel environment
-declare const module: any;
-if (process.env.VERCEL) {
-  module.exports = app;
-  exports.handler = app;
-}
