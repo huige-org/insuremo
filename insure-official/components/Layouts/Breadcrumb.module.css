@@ -1,0 +1,181 @@
+/**
+ * Breadcrumb 样式模块 - 时尚现代设计
+ */
+
+.breadcrumb {
+  width: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.875rem 0;
+  position: relative;
+}
+
+.breadcrumb::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--spacing-md);
+  max-width: var(--container-2xl);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  animation: slideIn 0.4s ease-out;
+}
+
+.item:hover .link {
+  color: var(--primary);
+  transform: translateX(2px);
+}
+
+.link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+  position: relative;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0.5rem;
+  right: 0.5rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 1px;
+}
+
+.link:hover {
+  background-color: rgba(0, 102, 204, 0.08);
+}
+
+.link:hover::after {
+  opacity: 1;
+}
+
+.separatorItem {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  animation: slideIn 0.4s ease-out;
+}
+
+.separator {
+  margin: 0 0.6rem;
+  color: #d1d5db;
+  font-weight: 300;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.separatorItem:hover .separator {
+  color: #9ca3af;
+  transform: scaleX(1.2);
+}
+
+.active {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.02);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 动画定义 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .breadcrumb {
+    padding: 0.75rem 0;
+  }
+
+  .list {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .item {
+    font-size: 0.85rem;
+  }
+
+  .link {
+    padding: 0.3rem 0.4rem;
+  }
+
+  .separator {
+    margin: 0 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .breadcrumb {
+    padding: 0.7rem 0;
+  }
+
+  .list {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .item {
+    font-size: 0.8rem;
+  }
+
+  .link {
+    padding: 0.25rem 0.35rem;
+  }
+
+  .separator {
+    margin: 0 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  .active {
+    padding: 0.25rem 0.35rem;
+  }
+}

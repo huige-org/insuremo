@@ -1,0 +1,127 @@
+/**
+ * PageLayout 样式模块
+ */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: background-color var(--transition-base);
+}
+
+.breadcrumb {
+  background-color: var(--color-bg-light);
+  border-bottom: 1px solid var(--gray-200);
+  padding: var(--spacing-sm) 0;
+}
+
+.breadcrumb :global(ol) {
+  max-width: var(--container-2xl);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: flex;
+  list-style: none;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.breadcrumb :global(li) {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--color-bg-white) 0%, var(--gray-50) 100%);
+  border-bottom: 1px solid var(--gray-200);
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.container {
+  max-width: var(--container-2xl);
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: var(--color-text-secondary);
+  margin: var(--spacing-sm) 0 0 0;
+  font-weight: 400;
+}
+
+.content {
+  flex: 1;
+  padding: var(--spacing-xl) var(--spacing-md);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.content > :not(:last-child) {
+  margin-bottom: var(--spacing-xl);
+}
+
+/* 最大宽度变量 */
+.maxWidth-sm {
+  max-width: var(--container-sm);
+}
+
+.maxWidth-md {
+  max-width: var(--container-md);
+}
+
+.maxWidth-lg {
+  max-width: var(--container-lg);
+}
+
+.maxWidth-xl {
+  max-width: var(--container-xl);
+}
+
+.maxWidth-2xl {
+  max-width: var(--container-2xl);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .header {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .content {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .content {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .breadcrumb :global(ol) {
+    padding: 0 var(--spacing-sm);
+  }
+}

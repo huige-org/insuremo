@@ -1,0 +1,79 @@
+/**
+ * Section 样式模块
+ */
+
+.section {
+  width: 100%;
+  transition: background-color var(--transition-base);
+}
+
+.container {
+  max-width: var(--container-2xl);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 间距变量 */
+.section {
+  padding: var(--spacing-lg);
+}
+
+.padding-sm {
+  padding: var(--spacing-sm);
+}
+
+.padding-md {
+  padding: var(--spacing-md);
+}
+
+.padding-lg {
+  padding: var(--spacing-lg);
+}
+
+.padding-xl {
+  padding: var(--spacing-xl);
+}
+
+/* 最大宽度变量 */
+.maxWidth-sm .container {
+  max-width: var(--container-sm);
+}
+
+.maxWidth-md .container {
+  max-width: var(--container-md);
+}
+
+.maxWidth-lg .container {
+  max-width: var(--container-lg);
+}
+
+.maxWidth-xl .container {
+  max-width: var(--container-xl);
+}
+
+.maxWidth-2xl .container {
+  max-width: var(--container-2xl);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-md);
+  }
+
+  .padding-lg,
+  .padding-xl {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: var(--spacing-sm);
+  }
+
+  .padding-lg,
+  .padding-xl {
+    padding: var(--spacing-sm);
+  }
+}

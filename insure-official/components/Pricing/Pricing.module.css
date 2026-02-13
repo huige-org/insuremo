@@ -1,0 +1,136 @@
+/* Pricing Section */
+
+.pricing {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1);
+  transform: translateY(-5px);
+}
+
+.card.featured {
+  border-color: #2563eb;
+  box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.2);
+  transform: scale(1.05);
+}
+
+.card.featured:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.plan {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #2563eb;
+}
+
+.month {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.features li {
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .pricing {
+    padding: 2.5rem 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 2rem;
+  }
+
+  .card.featured {
+    transform: scale(1);
+  }
+
+  .card.featured:hover {
+    transform: translateY(-5px);
+  }
+}

@@ -1,0 +1,188 @@
+/**
+ * Solutions 页面样式模块
+ */
+
+.introText {
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+}
+
+.solutionCard {
+  padding: 0;
+}
+
+.solutionTitle {
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 1rem;
+}
+
+.solutionDescription {
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.contentArea {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.details h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 1.5rem;
+}
+
+.checkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkList li {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.checkList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.learnMoreBtn {
+  padding: 0.875rem 2.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.learnMoreBtn:hover {
+  background-color: var(--primary-dark);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.ctaSection {
+  text-align: center;
+  color: white;
+  padding: 1rem 0;
+}
+
+.ctaSection h2 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: inherit;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.ctaSection p {
+  font-size: 1.2rem;
+  color: inherit;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.contactBtn {
+  padding: 0.875rem 2.25rem;
+  background-color: white;
+  color: var(--primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.contactBtn:hover {
+  background-color: var(--gray-100);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .contentArea {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cta {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .solutionTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .solutionDescription {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .details h3 {
+    font-size: 1.1rem;
+  }
+
+  .checkList li {
+    font-size: 0.95rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .ctaSection h2 {
+    font-size: 1.75rem;
+  }
+
+  .ctaSection p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .introText {
+    font-size: 1rem;
+  }
+
+  .learnMoreBtn,
+  .contactBtn {
+    width: 100%;
+  }
+
+  .checkList li {
+    padding-left: 1.75rem;
+    font-size: 0.9rem;
+  }
+}

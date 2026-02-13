@@ -1,0 +1,75 @@
+/**
+ * Case Studies 页面样式模块
+ */
+
+.introText {
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+}
+
+.ctaSection {
+  text-align: center;
+  padding: 1.5rem 0;
+  color: var(--color-text-dark);
+}
+
+.ctaSection h2 {
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  color: inherit;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.ctaSection p {
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.scheduleBtn {
+  padding: 0.875rem 2rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.scheduleBtn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .introText {
+    font-size: 1rem;
+  }
+
+  .ctaSection h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ctaSection p {
+    font-size: 1rem;
+  }
+
+  .scheduleBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .introText {
+    margin-bottom: 1.5rem;
+  }
+}
