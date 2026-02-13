@@ -31,8 +31,6 @@ export const metadata: Metadata = {
     type: "website",
     locale: "zh_CN",
   },
-  maker: "InsureMO",
-  creator: "InsureMO",
 };
 
 export default function RootLayout({
