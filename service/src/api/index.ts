@@ -34,7 +34,9 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: true,
+  origin: process.env.CORS_ORIGIN === 'true' 
+    ? true 
+    : process.env.CORS_ORIGIN?.split(',') || true,
   credentials: true,
 }));
 

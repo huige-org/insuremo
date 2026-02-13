@@ -6,6 +6,7 @@ const envSchema = z.object({
   PORT: z.string().default('3001'),
   API_PREFIX: z.string().default('/api/v1'),
   VERCEL_URL: z.string().optional(),
+  CORS_ORIGIN: z.string().optional(),
 
   // Supabase
   SUPABASE_URL: z.string().url(),
