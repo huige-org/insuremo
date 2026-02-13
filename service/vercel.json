@@ -11,5 +11,10 @@
       "src": "/(.*)",
       "dest": "dist/src/vercel.js"
     }
-  ]
+  ],
+  "build": {
+    "env": {
+      "ENABLE_NO_COMPILE": "1"
+    }
+  }
 }
