@@ -11,28 +11,14 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "sourceMap": true,
-    "declaration": false,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noImplicitThis": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "strictNullChecks": false,
-    "strictPropertyInitialization": false
+    "sourceMap": false,
+    "declaration": false
   },
   "include": [
-    "src/**/*",
-    "api/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist"
-  ],
-  "ts-node": {
-    "esm": false,
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+  ]
 }
