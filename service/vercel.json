@@ -3,10 +3,5 @@
   "buildCommand": "tsc",
   "installCommand": "npm install",
   "framework": null,
-  "regions": ["iad1"],
-  "functions": {
-    "dist/vercel.js": {
-      "runtime": "@vercel/node@3.0.0"
-    }
-  }
+  "regions": ["iad1"]
 }
