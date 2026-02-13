@@ -278,7 +278,7 @@ const handleSubmit = async () => {
     if (isEdit.value) {
       await userApi.update(form.id, {
         email: form.email,
-        full_name: form.nickname,
+        full_name: form.full_name,
         phone: form.phone,
         status: form.status,
         roleIds: form.roleIds
@@ -290,7 +290,7 @@ const handleSubmit = async () => {
       await userApi.create({
         email: form.email,
         password: 'Aa123456!',
-        full_name: form.nickname,
+        full_name: form.full_name,
         phone: form.phone,
         roleIds: form.roleIds
       })

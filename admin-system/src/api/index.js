@@ -67,16 +67,20 @@ export const userApi = {
   update: (id, data) =>
     request(`/users/${id}`, { method: "PUT", body: JSON.stringify(data) }),
   delete: (id) => request(`/users/${id}`, { method: "DELETE" }),
-  assignRoles: (id, roleIds) =>
-    request(`/users/${id}/roles`, {
+  assignRoles: (id, roleIds) => {
+    // Use the bulk assignRoles method from user service
+    return request(`/users/${id}/assign-roles`, {
       method: "POST",
       body: JSON.stringify({ roleIds }),
-    }),
-  removeRoles: (id, roleIds) =>
-    request(`/users/${id}/roles`, {
-      method: "DELETE",
+    });
+  },
+  removeRoles: (id, roleIds) => {
+    // Use the bulk removeRoles method from user service
+    return request(`/users/${id}/remove-roles`, {
+      method: "POST",
       body: JSON.stringify({ roleIds }),
-    }),
+    });
+  },
 };
 
 export const roleApi = {

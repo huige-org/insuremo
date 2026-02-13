@@ -1,6 +1,6 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { env } from './env';
-import { logger } from './logger';
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { env } from "./env";
+import { logger } from "./logger";
 
 let supabaseClient: SupabaseClient | null = null;
 
@@ -12,15 +12,28 @@ export const createSupabaseClient = (): SupabaseClient => {
         persistSession: false,
       },
       db: {
-        schema: 'public',
+        schema: "public",
       },
     });
-    logger.info('Supabase client initialized');
+    logger.info("Supabase client initialized");
   }
   return supabaseClient;
 };
 
 export const getSupabaseClient = (): SupabaseClient => {
+  // 在Vercel环境下，每次请求都创建新的连接
+  if (process.env.VERCEL) {
+    return createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+      db: {
+        schema: "public",
+      },
+    });
+  }
+
   if (!supabaseClient) {
     return createSupabaseClient();
   }
@@ -28,8 +41,8 @@ export const getSupabaseClient = (): SupabaseClient => {
 };
 
 export const closeSupabaseConnection = async (): Promise<void> => {
-  if (supabaseClient) {
+  if (supabaseClient && !process.env.VERCEL) {
     supabaseClient = null;
-    logger.info('Supabase connection closed');
+    logger.info("Supabase connection closed");
   }
 };

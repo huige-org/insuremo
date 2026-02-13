@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
   getUsers,
   getUserById,
@@ -7,9 +7,11 @@ import {
   deleteUser,
   assignRole,
   removeRole,
-} from '../controllers/user.controller';
-import { authenticate, authorize } from '../middlewares/auth.middleware';
-import { rateLimiter } from '../middlewares/rate-limit.middleware';
+  assignRoles,
+  removeRoles,
+} from "../controllers/user.controller";
+import { authenticate, authorize } from "../middlewares/auth.middleware";
+import { rateLimiter } from "../middlewares/rate-limit.middleware";
 
 const router = Router();
 
@@ -56,7 +58,13 @@ const router = Router();
  *       403:
  *         description: Forbidden
  */
-router.get('/', authenticate, authorize('admin', 'superadmin', 'test'), rateLimiter, getUsers);
+router.get(
+  "/",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  rateLimiter,
+  getUsers
+);
 
 /**
  * @swagger
@@ -96,7 +104,12 @@ router.get('/', authenticate, authorize('admin', 'superadmin', 'test'), rateLimi
  *       403:
  *         description: Forbidden
  */
-router.post('/', authenticate, authorize('admin', 'superadmin', 'test'), createUser);
+router.post(
+  "/",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  createUser
+);
 
 /**
  * @swagger
@@ -123,7 +136,12 @@ router.post('/', authenticate, authorize('admin', 'superadmin', 'test'), createU
  *       404:
  *         description: User not found
  */
-router.get('/:id', authenticate, authorize('admin', 'superadmin', 'test'), getUserById);
+router.get(
+  "/:id",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  getUserById
+);
 
 /**
  * @swagger
@@ -168,7 +186,12 @@ router.get('/:id', authenticate, authorize('admin', 'superadmin', 'test'), getUs
  *       404:
  *         description: User not found
  */
-router.put('/:id', authenticate, authorize('admin', 'superadmin', 'test'), updateUser);
+router.put(
+  "/:id",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  updateUser
+);
 
 /**
  * @swagger
@@ -195,7 +218,12 @@ router.put('/:id', authenticate, authorize('admin', 'superadmin', 'test'), updat
  *       404:
  *         description: User not found
  */
-router.delete('/:id', authenticate, authorize('admin', 'superadmin', 'test'), deleteUser);
+router.delete(
+  "/:id",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  deleteUser
+);
 
 /**
  * @swagger
@@ -232,7 +260,12 @@ router.delete('/:id', authenticate, authorize('admin', 'superadmin', 'test'), de
  *       403:
  *         description: Forbidden
  */
-router.post('/:id/roles', authenticate, authorize('admin', 'superadmin', 'test'), assignRole);
+router.post(
+  "/:id/roles",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  assignRole
+);
 
 /**
  * @swagger
@@ -269,6 +302,99 @@ router.post('/:id/roles', authenticate, authorize('admin', 'superadmin', 'test')
  *       403:
  *         description: Forbidden
  */
-router.delete('/:id/roles', authenticate, authorize('admin', 'superadmin', 'test'), removeRole);
+router.delete(
+  "/:id/roles",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  removeRole
+);
+
+/**
+ * @swagger
+ * /api/v1/users/{id}/assign-roles:
+ *   post:
+ *     summary: Assign multiple roles to user
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - roleIds
+ *             properties:
+ *               roleIds:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: uuid
+ *     responses:
+ *       200:
+ *         description: Roles assigned successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
+router.post(
+  "/:id/assign-roles",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  assignRoles
+);
+
+/**
+ * @swagger
+ * /api/v1/users/{id}/remove-roles:
+ *   post:
+ *     summary: Remove multiple roles from user
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - roleIds
+ *             properties:
+ *               roleIds:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: uuid
+ *     responses:
+ *       200:
+ *         description: Roles removed successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
+router.post(
+  "/:id/remove-roles",
+  authenticate,
+  authorize("admin", "superadmin", "test"),
+  removeRoles
+);
 
 export default router;
