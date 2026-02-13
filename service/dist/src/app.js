@@ -20,14 +20,11 @@ const error_middleware_1 = require("./middlewares/error.middleware");
 const rate_limit_middleware_1 = require("./middlewares/rate-limit.middleware");
 const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
-// Handle Vercel serverless environment
 const isVercel = !!process.env.VERCEL;
-// Initialize connections - 在Vercel环境下延迟初始化
 if (!isVercel) {
     (0, database_1.createSupabaseClient)();
     (0, redis_1.createRedisClient)();
 }
-// Security middleware
 app.use((0, helmet_1.default)({
     contentSecurityPolicy: {
         directives: {
@@ -58,18 +55,12 @@ app.use((0, cors_1.default)({
         : true,
     credentials: true,
 }));
-// Body parsing
 app.use(express_1.default.json({ limit: "10mb" }));
 app.use(express_1.default.urlencoded({ extended: true, limit: "10mb" }));
-// Compression
 app.use((0, compression_1.default)());
-// Request ID
 app.use(logger_middleware_1.requestId);
-// Request logging
 app.use(logger_middleware_1.requestLogger);
-// Rate limiting
 app.use(rate_limit_middleware_1.rateLimiter);
-// Swagger documentation
 const swaggerOptions = {
     definition: {
         openapi: "3.0.0",
@@ -111,7 +102,6 @@ app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.de
     customCss: ".swagger-ui .topbar { display: none }",
     customSiteTitle: "Insure Admin API Docs",
 }));
-// Health check
 app.get('/health', (_req, res) => {
     res.status(200).json({
         status: 'healthy',
@@ -121,27 +111,21 @@ app.get('/health', (_req, res) => {
         vercel: !!process.env.VERCEL,
     });
 });
-// Simple test endpoint
 app.get('/test', (_req, res) => {
     res.status(200).json({
         message: 'Vercel deployment test successful',
         timestamp: new Date().toISOString(),
     });
 });
-// API routes
 app.use(env_1.env.API_PREFIX, routes_1.default);
-// 404 handler
 app.use(error_middleware_1.notFoundHandler);
-// Error handler
 app.use(error_middleware_1.errorHandler);
-// Start server - Vercel环境下不启动独立服务器
 if (!isVercel) {
     const PORT = parseInt(env_1.env.PORT, 10);
     const server = app.listen(PORT, () => {
         logger_1.logger.info(`Server running on port ${PORT} in ${env_1.env.NODE_ENV} mode`);
         logger_1.logger.info(`API Documentation: http://localhost:${PORT}/api-docs`);
     });
-    // Graceful shutdown
     const gracefulShutdown = async (signal) => {
         logger_1.logger.info(`${signal} received. Starting graceful shutdown...`);
         server.close(async () => {
@@ -156,7 +140,6 @@ if (!isVercel) {
                 process.exit(1);
             }
         });
-        // Force shutdown after 30 seconds
         setTimeout(() => {
             logger_1.logger.error("Forced shutdown due to timeout");
             process.exit(1);
@@ -164,7 +147,6 @@ if (!isVercel) {
     };
     process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
     process.on("SIGINT", () => gracefulShutdown("SIGINT"));
-    // Handle uncaught errors
     process.on("uncaughtException", (error) => {
         logger_1.logger.error("Uncaught Exception:", error);
         gracefulShutdown("UNCAUGHT_EXCEPTION");
@@ -176,10 +158,5 @@ if (!isVercel) {
 }
 else {
     logger_1.logger.info("Running in Vercel environment");
-    // 在Vercel环境下，连接将在首次请求时建立
 }
 exports.default = app;
-if (process.env.VERCEL) {
-    module.exports = app;
-    exports.handler = app;
-}

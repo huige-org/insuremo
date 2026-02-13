@@ -10,7 +10,18 @@ const logger_1 = require("./logger");
 let redisClient = null;
 const createRedisClient = () => {
     if (!redisClient) {
-        const isUpstash = env_1.env.REDIS_HOST.includes("upstash");
+        const redisHost = env_1.env.REDIS_HOST || "";
+        const isUpstash = redisHost.includes("upstash");
+        if (!env_1.env.REDIS_HOST) {
+            logger_1.logger.warn("Redis host not configured");
+            return {
+                get: async () => null,
+                set: async () => "OK",
+                del: async () => 1,
+                quit: async () => "OK",
+                on: () => { },
+            };
+        }
         redisClient = new ioredis_1.default({
             host: env_1.env.REDIS_HOST,
             port: parseInt(env_1.env.REDIS_PORT, 10),

@@ -12,7 +12,10 @@
     "sourceMap": false,
     "declaration": false,
     "outDir": "./dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictNullChecks": false
   },
   "include": ["src/**/*", "api/**/*"],
   "exclude": ["node_modules", "dist"]

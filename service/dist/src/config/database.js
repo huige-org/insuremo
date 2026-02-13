@@ -6,6 +6,10 @@ const env_1 = require("./env");
 const logger_1 = require("./logger");
 let supabaseClient = null;
 const createSupabaseClient = () => {
+    if (!env_1.env.SUPABASE_URL || !env_1.env.SUPABASE_SERVICE_KEY) {
+        logger_1.logger.warn("Supabase not configured, returning null client");
+        return null;
+    }
     if (!supabaseClient) {
         supabaseClient = (0, supabase_js_1.createClient)(env_1.env.SUPABASE_URL, env_1.env.SUPABASE_SERVICE_KEY, {
             auth: {
@@ -22,7 +26,10 @@ const createSupabaseClient = () => {
 };
 exports.createSupabaseClient = createSupabaseClient;
 const getSupabaseClient = () => {
-    // 在Vercel环境下，每次请求都创建新的连接
+    if (!env_1.env.SUPABASE_URL || !env_1.env.SUPABASE_SERVICE_KEY) {
+        logger_1.logger.warn("Supabase not configured");
+        return null;
+    }
     if (process.env.VERCEL) {
         return (0, supabase_js_1.createClient)(env_1.env.SUPABASE_URL, env_1.env.SUPABASE_SERVICE_KEY, {
             auth: {
