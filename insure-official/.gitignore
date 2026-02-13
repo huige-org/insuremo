@@ -19,11 +19,12 @@ coverage
 *.sublime-workspace
 
 # Environment
-# .env
-# .env.local
-# .env.production.local
-# .env.development.local
-# .env.test.local
+.env
+.env.local
+.env.production
+.env.development
+.env.production.local
+.env.development.local
 
 # Logs
 logs

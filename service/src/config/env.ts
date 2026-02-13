@@ -5,6 +5,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.string().default('3001'),
   API_PREFIX: z.string().default('/api/v1'),
+  VERCEL_URL: z.string().optional(),
 
   // Supabase
   SUPABASE_URL: z.string().url(),
