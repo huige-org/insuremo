@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const video_controller_1 = require("../controllers/video.controller");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const router = (0, express_1.Router)();
+router.get('/', auth_middleware_1.authenticate, video_controller_1.getVideos);
+router.get('/:id', auth_middleware_1.authenticate, video_controller_1.getVideoById);
+router.post('/', auth_middleware_1.authenticate, video_controller_1.createVideo);
+router.put('/:id', auth_middleware_1.authenticate, video_controller_1.updateVideo);
+router.delete('/:id', auth_middleware_1.authenticate, video_controller_1.deleteVideo);
+exports.default = router;

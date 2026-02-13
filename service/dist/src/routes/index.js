@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_routes_1 = __importDefault(require("./auth.routes"));
+const user_routes_1 = __importDefault(require("./user.routes"));
+const role_routes_1 = __importDefault(require("./role.routes"));
+const menu_routes_1 = __importDefault(require("./menu.routes"));
+const video_routes_1 = __importDefault(require("./video.routes"));
+const article_routes_1 = __importDefault(require("./article.routes"));
+const case_routes_1 = __importDefault(require("./case.routes"));
+const upload_routes_1 = __importDefault(require("./upload.routes"));
+const public_routes_1 = __importDefault(require("./public.routes"));
+const router = (0, express_1.Router)();
+router.use('/auth', auth_routes_1.default);
+router.use('/users', user_routes_1.default);
+router.use('/roles', role_routes_1.default);
+router.use('/menus', menu_routes_1.default);
+router.use('/videos', video_routes_1.default);
+router.use('/articles', article_routes_1.default);
+router.use('/cases', case_routes_1.default);
+router.use('/upload', upload_routes_1.default);
+router.use('/public', public_routes_1.default);
+exports.default = router;
