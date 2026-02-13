@@ -6,7 +6,19 @@ let redisClient: Redis | null = null;
 
 export const createRedisClient = (): Redis => {
   if (!redisClient) {
-    const isUpstash = env.REDIS_HOST.includes("upstash");
+    const redisHost = env.REDIS_HOST || "";
+    const isUpstash = redisHost.includes("upstash");
+
+    if (!env.REDIS_HOST) {
+      logger.warn("Redis host not configured");
+      return {
+        get: async () => null,
+        set: async () => "OK",
+        del: async () => 1,
+        quit: async () => "OK",
+        on: () => {},
+      } as unknown as Redis;
+    }
 
     redisClient = new Redis({
       host: env.REDIS_HOST,

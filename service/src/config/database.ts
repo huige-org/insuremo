@@ -4,7 +4,12 @@ import { logger } from "./logger";
 
 let supabaseClient: SupabaseClient | null = null;
 
-export const createSupabaseClient = (): SupabaseClient => {
+export const createSupabaseClient = (): SupabaseClient | null => {
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY) {
+    logger.warn("Supabase not configured, returning null client");
+    return null;
+  }
+
   if (!supabaseClient) {
     supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, {
       auth: {
@@ -20,8 +25,12 @@ export const createSupabaseClient = (): SupabaseClient => {
   return supabaseClient;
 };
 
-export const getSupabaseClient = (): SupabaseClient => {
-  // 在Vercel环境下，每次请求都创建新的连接
+export const getSupabaseClient = (): SupabaseClient | null => {
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY) {
+    logger.warn("Supabase not configured");
+    return null;
+  }
+
   if (process.env.VERCEL) {
     return createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, {
       auth: {
