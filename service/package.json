@@ -34,7 +34,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
     "@types/bcrypt": "^6.0.0",
-    "@vercel/express": "^1.0.0",
+    "@vercel/express": "^0.1.45",
     "bcrypt": "^6.0.0",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
