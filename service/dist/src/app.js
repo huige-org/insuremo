@@ -96,12 +96,15 @@ const swaggerOptions = {
     },
     apis: ["./src/routes/*.ts", "./src/controllers/*.ts"],
 };
-const specs = (0, swagger_jsdoc_1.default)(swaggerOptions);
-app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs, {
-    explorer: true,
-    customCss: ".swagger-ui .topbar { display: none }",
-    customSiteTitle: "Insure Admin API Docs",
-}));
+// Only enable Swagger in non-Vercel environment
+if (!isVercel) {
+    const specs = (0, swagger_jsdoc_1.default)(swaggerOptions);
+    app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs, {
+        explorer: true,
+        customCss: ".swagger-ui .topbar { display: none }",
+        customSiteTitle: "Insure Admin API Docs",
+    }));
+}
 app.get('/health', (_req, res) => {
     res.status(200).json({
         status: 'healthy',
