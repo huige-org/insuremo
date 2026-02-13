@@ -6,13 +6,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-import { env } from './config/env';
-import { createSupabaseClient } from './config/database';
-import { createRedisClient } from './config/redis';
-import { requestId } from './middlewares/logger.middleware';
-import { errorHandler, notFoundHandler } from './middlewares/error.middleware';
-import { rateLimiter } from './middlewares/rate-limit.middleware';
-import routes from './routes';
+import { env } from './src/config/env';
+import { createSupabaseClient } from './src/config/database';
+import { createRedisClient } from './src/config/redis';
+import { requestId } from './src/middlewares/logger.middleware';
+import { errorHandler, notFoundHandler } from './src/middlewares/error.middleware';
+import { rateLimiter } from './src/middlewares/rate-limit.middleware';
+import routes from './src/routes';
 
 const app = express();
 

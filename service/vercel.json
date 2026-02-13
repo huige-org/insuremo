@@ -3,5 +3,6 @@
   "buildCommand": "tsc",
   "installCommand": "npm install",
   "framework": null,
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "outputDirectory": "dist"
 }
