@@ -2,8 +2,14 @@ import { z } from 'zod';
 import { Request, Response, NextFunction } from 'express';
 import { validationErrorResponse } from './response';
 
+interface CustomRequest extends Request {
+  body: any;
+  query: any;
+  params: any;
+}
+
 export const validateBody = <T>(schema: z.ZodSchema<T>) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return (req: CustomRequest, res: Response, next: NextFunction): void => {
     const result = schema.safeParse(req.body);
 
     if (!result.success) {
@@ -23,7 +29,7 @@ export const validateBody = <T>(schema: z.ZodSchema<T>) => {
 };
 
 export const validateQuery = <T>(schema: z.ZodSchema<T>) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return (req: CustomRequest, res: Response, next: NextFunction): void => {
     const result = schema.safeParse(req.query);
 
     if (!result.success) {
@@ -43,7 +49,7 @@ export const validateQuery = <T>(schema: z.ZodSchema<T>) => {
 };
 
 export const validateParams = <T>(schema: z.ZodSchema<T>) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return (req: CustomRequest, res: Response, next: NextFunction): void => {
     const result = schema.safeParse(req.params);
 
     if (!result.success) {
