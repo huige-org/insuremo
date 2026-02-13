@@ -1,8 +1,5 @@
 {
-  "$schema": "https://openapi.vercel.com/schemas/v2.json",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "framework": null,
-  "regions": ["iad1"],
-  "supportsResponseStreaming": false
+  "framework": null
 }
