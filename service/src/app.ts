@@ -204,5 +204,9 @@ if (!isVercel) {
 
 export default app;
 
-// Vercel serverless function handler
-export const handler = app;
+// Vercel serverless function handler - only in Vercel environment
+declare const module: any;
+if (process.env.VERCEL) {
+  module.exports = app;
+  exports.handler = app;
+}
