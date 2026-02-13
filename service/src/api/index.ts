@@ -34,9 +34,7 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: env.NODE_ENV === 'production' 
-    ? ['https://yourdomain.com', 'https://*.vercel.app'] 
-    : true,
+  origin: true,
   credentials: true,
 }));
 
@@ -56,8 +54,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `https://${env.VERCEL_URL || 'localhost'}${env.API_PREFIX}`,
-        description: 'Vercel server',
+        url: env.API_PREFIX,
+        description: 'API Server',
       },
     ],
   },
