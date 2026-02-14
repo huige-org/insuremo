@@ -3,6 +3,8 @@
  * 展示客户案例
  */
 
+export const revalidate = 120;
+
 import {
   PageLayout,
   Breadcrumb,

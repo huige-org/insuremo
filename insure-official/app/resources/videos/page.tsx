@@ -3,6 +3,8 @@
  * 展示教程和演示视频，统一布局和悬停效果
  */
 
+export const revalidate = 120;
+
 import {
   PageLayout,
   Breadcrumb,

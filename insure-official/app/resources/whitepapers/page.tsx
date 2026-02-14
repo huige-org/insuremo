@@ -3,6 +3,8 @@
  * 展示行业白皮书和研究报告
  */
 
+export const revalidate = 120;
+
 import {
   PageLayout,
   Breadcrumb,

@@ -34,7 +34,7 @@ const changePasswordSchema = z.object({
 const updateProfileSchema = z.object({
   full_name: z.string().optional(),
   phone: z.string().optional(),
-  avatar_url: z.string().url().optional(),
+  avatar_url: z.string().optional(),
 });
 
 export const login = asyncHandler(async (req: Request, res: Response): Promise<void> => {

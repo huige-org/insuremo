@@ -26,7 +26,7 @@
       
       <el-table :data="tableData" style="width: 100%" v-loading="loading">
         <el-table-column type="index" width="50" label="序号" />
-        <el-table-column prop="name" label="案例名称" min-width="200" show-overflow-tooltip />
+        <el-table-column prop="title" label="案例名称" min-width="200" show-overflow-tooltip />
         <el-table-column prop="industry" label="行业" width="120">
           <template #default="{ row }">
             <el-tag v-if="row.industry === 'internet'" type="primary">互联网</el-tag>
@@ -83,8 +83,8 @@
       :close-on-click-modal="false"
     >
       <div v-if="currentCase" class="case-detail">
-        <div class="detail-header">
-          <h2 class="detail-title">{{ currentCase.name }}</h2>
+          <div class="detail-header">
+          <h2 class="detail-title">{{ currentCase.title }}</h2>
           <div class="detail-meta">
             <el-tag :type="getStatusType(currentCase.status)" size="small">{{ getStatusText(currentCase.status) }}</el-tag>
             <el-tag type="info" size="small" class="ml-2">{{ getIndustryText(currentCase.industry) }}</el-tag>
@@ -124,7 +124,7 @@
         </div>
         <div class="detail-section">
           <h3 class="section-title">案例详情</h3>
-          <div class="section-content" v-html="currentCase.detail"></div>
+          <div class="section-content" v-html="currentCase.content"></div>
         </div>
         <div class="detail-stats">
           <span class="stat-item">
@@ -156,7 +156,7 @@
     >
       <el-form :model="form" label-width="100px">
         <el-form-item label="案例名称">
-          <el-input v-model="form.name" placeholder="请输入案例名称" />
+          <el-input v-model="form.title" placeholder="请输入案例名称" />
         </el-form-item>
         <el-row :gutter="20">
           <el-col :span="12">
@@ -214,7 +214,7 @@
           <RichEditor v-model="form.summary" placeholder="请输入案例简介..." style="width: 100%" />
         </el-form-item>
         <el-form-item label="案例详情">
-          <RichEditor v-model="form.detail" placeholder="请输入案例详情..." style="width: 100%" />
+          <RichEditor v-model="form.content" placeholder="请输入案例详情..." style="width: 100%" />
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
@@ -257,14 +257,14 @@ const pageParams = reactive({
 
 const form = reactive({
   id: null,
-  name: '',
+  title: '',
   industry: '',
   client: '',
   completionDate: '',
   duration: '',
   cover: '',
   summary: '',
-  detail: '',
+  content: '',
   status: 'reviewing'
 })
 
@@ -272,7 +272,7 @@ const viewDialogVisible = ref(false)
 const currentCase = ref(null)
 
 const rules = {
-  name: [{ required: true, message: '请输入案例名称', trigger: 'blur' }]
+  title: [{ required: true, message: '请输入案例名称', trigger: 'blur' }]
 }
 
 const tableData = ref([])
@@ -305,14 +305,14 @@ const handleAdd = () => {
   dialogTitle.value = '新增案例'
   Object.assign(form, {
     id: null,
-    name: '',
+    title: '',
     industry: '',
     client: '',
     completionDate: '',
     duration: '',
     cover: '',
     summary: '',
-    detail: '',
+    content: '',
     status: 'reviewing'
   })
   dialogVisible.value = true
@@ -326,14 +326,14 @@ const handleEdit = async (row) => {
     const data = res.data
     Object.assign(form, {
       id: data.id,
-      name: data.name,
+      title: data.title,
       industry: data.industry,
-      client: data.client,
+      client: data.company_name || data.client || '',
       completionDate: data.completionDate ? new Date(data.completionDate) : null,
       duration: data.duration,
-      cover: data.cover || '',
+      cover: data.cover_url || data.cover || '',
       summary: data.summary,
-      detail: data.detail,
+      content: data.content,
       status: data.status
     })
     dialogVisible.value = true
@@ -395,7 +395,7 @@ const getIndustryText = (industry) => {
 }
 
 const handleDelete = (row) => {
-  ElMessageBox.confirm(`确定要删除案例"${row.name}"吗？`, '提示', {
+  ElMessageBox.confirm(`确定要删除案例"${row.title}"吗？`, '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
@@ -417,14 +417,14 @@ const handleClone = async (row) => {
     
     // 准备克隆数据
     const cloneData = {
-      name: caseData.name + '_副本',
+      title: caseData.title + '_副本',
       industry: caseData.industry,
-      client: caseData.client,
+      client: caseData.company_name || caseData.client || '',
       completionDate: caseData.completionDate,
       duration: caseData.duration,
-      cover: caseData.cover,
+      cover: caseData.cover_url || caseData.cover || '',
       summary: caseData.summary,
-      detail: caseData.detail,
+      content: caseData.content,
       status: 'reviewing'
     }
     

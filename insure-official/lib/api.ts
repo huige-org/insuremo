@@ -66,6 +66,7 @@ export function transformArticle(item: Article) {
     image: item.cover_url || undefined,
     link: `/resources/whitepapers/${item.id}`,
     linkText: 'Read More',
+    isRichText: true,
   };
 }
 
@@ -78,6 +79,7 @@ export function transformVideo(item: Video) {
     link: `/resources/videos/${item.id}`,
     linkText: 'Watch Video',
     isVideo: true,
+    isRichText: true,
   };
 }
 
@@ -85,9 +87,10 @@ export function transformCase(item: Case) {
   return {
     id: item.id,
     title: item.title,
-    description: item.summary ? item.summary.replace(/<[^>]*>/g, '').slice(0, 150) : '',
+    description: item.summary || '',
     image: item.cover_url || undefined,
     link: `/resources/case-studies/${item.id}`,
     linkText: 'Read case study',
+    isRichText: true,
   };
 }

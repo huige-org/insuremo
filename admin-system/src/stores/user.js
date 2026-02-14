@@ -103,6 +103,7 @@ export function useUserStore() {
 
   return {
     state: readonly(state),
+    setUser,
     login,
     logout,
     isAuthenticated,

@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+
+export const revalidate = 120;
+
 import {
   PageLayout,
   Breadcrumb,
@@ -73,7 +76,7 @@ export default async function WhitepaperDetailPage({ params }: Props) {
 
       <Section padding="lg">
         <div
-          style={{ lineHeight: 1.8 }}
+          className="rich-content"
           dangerouslySetInnerHTML={{ __html: data.content || "" }}
         />
       </Section>

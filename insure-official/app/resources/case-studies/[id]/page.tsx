@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+
+export const revalidate = 120;
+
 import {
   PageLayout,
   Breadcrumb,
@@ -56,7 +59,12 @@ export default async function CaseStudyDetailPage({ params }: Props) {
             <img
               src={data.cover_url}
               alt={data.title}
-              style={{ width: "100%", height: "auto", display: "block" }}
+              style={{
+                width: "100%",
+                height: "400px",
+                objectFit: "cover",
+                display: "block"
+              }}
             />
           </div>
         </Section>
@@ -64,7 +72,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
       <Section padding="lg">
         <div
-          className={styles.detailContent}
+          className="rich-content"
           dangerouslySetInnerHTML={{ __html: data.content || "" }}
         />
       </Section>

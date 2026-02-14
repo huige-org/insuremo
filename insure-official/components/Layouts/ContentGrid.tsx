@@ -18,6 +18,7 @@ export interface ContentCardData {
   linkText?: string;
   isVideo?: boolean;
   videoSrc?: string;
+  isRichText?: boolean;
 }
 
 interface ContentGridProps {
@@ -117,19 +118,23 @@ export default function ContentGrid({
             <h3 className={`${styles.title} ${styles.consistentTitle}`}>
               {item.title}
             </h3>
-            <p
-              className={`${styles.description} ${styles.consistentDescription}`}
-            >
-              {item.description}
-            </p>
-
-            {item.link && (
-              <a
-                href={item.link}
-                className={`${styles.link} ${styles.consistentLink}`}
+            {item.isRichText ? (
+              <div
+                className={`${styles.description} ${styles.consistentDescription}`}
+                dangerouslySetInnerHTML={{
+                  __html: item.description.length > 200
+                    ? item.description.slice(0, 200) + '...'
+                    : item.description
+                }}
+              />
+            ) : (
+              <p
+                className={`${styles.description} ${styles.consistentDescription}`}
               >
-                {item.linkText || "Read more"} →
-              </a>
+                {item.description.length > 200
+                  ? item.description.slice(0, 200) + '...'
+                  : item.description}
+              </p>
             )}
           </div>
         </a>

@@ -46,7 +46,7 @@ export const authenticate = async (
     const supabase = getSupabaseClient();
     const { data: user, error } = await supabase
       .from('profiles')
-      .select('id, email, status')
+      .select('id, email, full_name, avatar_url, phone, status')
       .eq('id', decoded.userId)
       .single();
 

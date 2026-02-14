@@ -5,6 +5,7 @@
 本方案旨在使用 **Next.js 16+** 完整还原 [https://insuremo.com/en/](https://insuremo.com/en/) 官方网站。
 
 **技术栈：**
+
 - **框架**: Next.js 16+ (App Router)
 - **样式**: Tailwind CSS + CSS Modules
 - **组件库**: React 19+
@@ -20,6 +21,7 @@
 ### 1. 网站结构概览
 
 #### 页面层级结构
+
 ```
 └── 首页 (/)
     ├── 顶部导航栏 (Header)
@@ -33,11 +35,13 @@
 ```
 
 #### CSS 类名设计
+
 - 使用 BEM 命名规范或 Tailwind CSS
 - 响应式设计 (mobile-first approach)
 - 断点: sm (640px), md (768px), lg (1024px), xl (1280px), 2xl (1536px)
 
 #### 资源清单
+
 - **样式表**: CSS/SCSS 文件（包含全局样式和组件样式）
 - **图片资源**: Logo、Hero 背景、案例图片等
 - **字体**: 自定义字体或系统字体栈
@@ -152,12 +156,14 @@ insure-official/
 ### 1. Header 组件 (Header.tsx)
 
 **功能:**
+
 - 响应式导航菜单
 - Logo 和品牌
 - 移动端汉堡菜单
 - 联系按钮/CTA
 
 **设计特点:**
+
 - Sticky 导航栏（滚动时保持顶部）
 - 支持深色/浅色主题
 - 平滑滚动动画
@@ -166,13 +172,13 @@ insure-official/
 
 ```tsx
 // app/components/Header/Header.tsx
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import Navigation from './Navigation';
-import styles from './Header.module.css';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Navigation from "./Navigation";
+import styles from "./Header.module.css";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -183,12 +189,12 @@ export default function Header() {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
       <div className={styles.container}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
@@ -297,6 +303,7 @@ export default function Header() {
 ### 2. Hero 组件 (Hero.tsx)
 
 **功能:**
+
 - 全屏/半屏专业背景
 - 文案和 CTA 按钮
 - 响应式文本大小
@@ -306,9 +313,9 @@ export default function Header() {
 
 ```tsx
 // app/components/Hero/Hero.tsx
-import styles from './Hero.module.css';
-import Button from '@/components/Common/Button';
-import Image from 'next/image';
+import styles from "./Hero.module.css";
+import Button from "@/components/Common/Button";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -329,9 +336,7 @@ export default function Hero() {
       {/* 内容区域 */}
       <div className={styles.content}>
         <div className={styles.container}>
-          <h1 className={styles.title}>
-            保险不应该那么复杂
-          </h1>
+          <h1 className={styles.title}>保险不应该那么复杂</h1>
           <p className={styles.subtitle}>
             我们简化了保险购买流程，让您专注于最重要的事情
           </p>
@@ -461,6 +466,7 @@ export default function Hero() {
 ### 3. Features 组件 (Features.tsx)
 
 **功能:**
+
 - 特性卡片网格布局
 - 图标或插图
 - 响应式列数
@@ -469,33 +475,33 @@ export default function Hero() {
 
 ```tsx
 // app/components/Features/Features.tsx
-import styles from './Features.module.css';
-import FeatureCard from './FeatureCard';
+import styles from "./Features.module.css";
+import FeatureCard from "./FeatureCard";
 
 const features = [
   {
     id: 1,
-    icon: '⚡',
-    title: '快速申请',
-    description: '仅需 5 分钟完成在线申请，无需繁琐文件',
+    icon: "⚡",
+    title: "快速申请",
+    description: "仅需 5 分钟完成在线申请，无需繁琐文件",
   },
   {
     id: 2,
-    icon: '🔒',
-    title: '安全可靠',
-    description: '银行级加密技术保护您的个人信息',
+    icon: "🔒",
+    title: "安全可靠",
+    description: "银行级加密技术保护您的个人信息",
   },
   {
     id: 3,
-    icon: '💬',
-    title: '24/7 支持',
-    description: '随时随地获得专业的客户服务支持',
+    icon: "💬",
+    title: "24/7 支持",
+    description: "随时随地获得专业的客户服务支持",
   },
   {
     id: 4,
-    icon: '✨',
-    title: '透明定价',
-    description: '没有隐藏费用，价格合理且有竞争力',
+    icon: "✨",
+    title: "透明定价",
+    description: "没有隐藏费用，价格合理且有竞争力",
   },
 ];
 
@@ -505,9 +511,7 @@ export default function Features() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>为什么选择我们</h2>
-          <p className={styles.subtitle}>
-            提供最佳的保险解决方案和服务
-          </p>
+          <p className={styles.subtitle}>提供最佳的保险解决方案和服务</p>
         </div>
 
         <div className={styles.grid}>
@@ -577,6 +581,7 @@ export default function Features() {
 ### 4. Footer 组件 (Footer.tsx)
 
 **功能:**
+
 - 多列页脚链接
 - 社交媒体链接
 - 邮件订阅表单
@@ -586,33 +591,33 @@ export default function Features() {
 
 ```tsx
 // app/components/Footer/Footer.tsx
-'use client';
+"use client";
 
-import styles from './Footer.module.css';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
+import styles from "./Footer.module.css";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
       if (response.ok) {
         setSubscribed(true);
-        setEmail('');
+        setEmail("");
         setTimeout(() => setSubscribed(false), 3000);
       }
     } catch (error) {
-      console.error('Subscribe failed:', error);
+      console.error("Subscribe failed:", error);
     }
   };
 
@@ -630,9 +635,7 @@ export default function Footer() {
                 height={40}
               />
             </Link>
-            <p className={styles.tagline}>
-              简化保险，保护未来
-            </p>
+            <p className={styles.tagline}>简化保险，保护未来</p>
           </div>
 
           {/* 导航链接 */}
@@ -640,27 +643,45 @@ export default function Footer() {
             <div className={styles.linksColumn}>
               <h4>产品</h4>
               <ul>
-                <li><Link href="/products/auto">汽车保险</Link></li>
-                <li><Link href="/products/home">家庭保险</Link></li>
-                <li><Link href="/products/life">人寿保险</Link></li>
+                <li>
+                  <Link href="/products/auto">汽车保险</Link>
+                </li>
+                <li>
+                  <Link href="/products/home">家庭保险</Link>
+                </li>
+                <li>
+                  <Link href="/products/life">人寿保险</Link>
+                </li>
               </ul>
             </div>
 
             <div className={styles.linksColumn}>
               <h4>公司</h4>
               <ul>
-                <li><Link href="/about">关于我们</Link></li>
-                <li><Link href="/blog">博客</Link></li>
-                <li><Link href="/careers">招聘</Link></li>
+                <li>
+                  <Link href="/about">关于我们</Link>
+                </li>
+                <li>
+                  <Link href="/blog">博客</Link>
+                </li>
+                <li>
+                  <Link href="/careers">招聘</Link>
+                </li>
               </ul>
             </div>
 
             <div className={styles.linksColumn}>
               <h4>支持</h4>
               <ul>
-                <li><Link href="/faq">常见问题</Link></li>
-                <li><Link href="/contact">联系我们</Link></li>
-                <li><Link href="/privacy">隐私政策</Link></li>
+                <li>
+                  <Link href="/faq">常见问题</Link>
+                </li>
+                <li>
+                  <Link href="/contact">联系我们</Link>
+                </li>
+                <li>
+                  <Link href="/privacy">隐私政策</Link>
+                </li>
               </ul>
             </div>
 
@@ -680,9 +701,7 @@ export default function Footer() {
                 </div>
               </form>
               {subscribed && (
-                <p className={styles.successMessage}>
-                  感谢您的订阅！
-                </p>
+                <p className={styles.successMessage}>感谢您的订阅！</p>
               )}
             </div>
           </div>
@@ -691,13 +710,25 @@ export default function Footer() {
         {/* 下部：社交媒体和版权 */}
         <div className={styles.bottomSection}>
           <div className={styles.social}>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span>𝕏</span>
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span>f</span>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span>in</span>
             </a>
           </div>
@@ -880,15 +911,15 @@ export default function Footer() {
 
 ```tsx
 // app/layout.tsx
-import type { Metadata } from 'next';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
-import './globals.css';
+import type { Metadata } from "next";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Insuremo - 简化保险，保护未来',
-  description: '快速、透明、安全的在线保险平台',
-  keywords: 'insurance, 保险, 在线保险',
+  title: "Insuremo - 简化保险，保护未来",
+  description: "快速、透明、安全的在线保险平台",
+  keywords: "insurance, 保险, 在线保险",
 };
 
 export default function RootLayout({
@@ -912,12 +943,12 @@ export default function RootLayout({
 
 ```tsx
 // app/page.tsx
-import Hero from '@/components/Hero/Hero';
-import Features from '@/components/Features/Features';
-import Products from '@/components/Products/Products';
-import Testimonials from '@/components/Testimonials/Testimonials';
-import Pricing from '@/components/Pricing/Pricing';
-import CTA from '@/components/CTA/CTA';
+import Hero from "@/components/Hero/Hero";
+import Features from "@/components/Features/Features";
+import Products from "@/components/Products/Products";
+import Testimonials from "@/components/Testimonials/Testimonials";
+import Pricing from "@/components/Pricing/Pricing";
+import CTA from "@/components/CTA/CTA";
 
 export default function Home() {
   return (
@@ -947,7 +978,8 @@ export default function Home() {
   --gray-900: #111827;
 
   /* 排版 */
-  --font-family-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   --font-size-base: 1rem;
   --line-height-base: 1.5;
 
@@ -1025,9 +1057,9 @@ button {
 
 ```tsx
 // app/components/Products/Products.tsx
-import { getProducts } from '@/lib/api';
-import ProductCard from './ProductCard';
-import styles from './Products.module.css';
+import { getProducts } from "@/lib/api";
+import ProductCard from "./ProductCard";
+import styles from "./Products.module.css";
 
 export default async function Products() {
   const products = await getProducts();
@@ -1051,7 +1083,7 @@ export default async function Products() {
 
 ```typescript
 // lib/api.ts
-import { unstable_cache } from 'next/cache';
+import { unstable_cache } from "next/cache";
 
 interface Product {
   id: number;
@@ -1069,32 +1101,32 @@ export const getProducts = unstable_cache(
     return [
       {
         id: 1,
-        name: '汽车保险',
-        description: '全面的汽车保护方案',
+        name: "汽车保险",
+        description: "全面的汽车保护方案",
         price: 299,
-        features: ['碰撞保护', '盗窃防护', '24/7 道路救援'],
-        image: '/images/products/auto.jpg',
+        features: ["碰撞保护", "盗窃防护", "24/7 道路救援"],
+        image: "/images/products/auto.jpg",
       },
       {
         id: 2,
-        name: '家庭保险',
-        description: '保护您的家和财产',
+        name: "家庭保险",
+        description: "保护您的家和财产",
         price: 399,
-        features: ['房屋结构保护', '个人财产覆盖', '责任保护'],
-        image: '/images/products/home.jpg',
+        features: ["房屋结构保护", "个人财产覆盖", "责任保护"],
+        image: "/images/products/home.jpg",
       },
       {
         id: 3,
-        name: '人寿保险',
-        description: '为家人的未来提供保障',
+        name: "人寿保险",
+        description: "为家人的未来提供保障",
         price: 199,
-        features: ['身故保险金', '伤残保险', '医疗补助'],
-        image: '/images/products/life.jpg',
+        features: ["身故保险金", "伤残保险", "医疗补助"],
+        image: "/images/products/life.jpg",
       },
     ];
   },
-  ['products'],
-  { revalidate: 3600 } // 1 小时重新验证
+  ["products"],
+  { revalidate: 120 } // 1 小时重新验证
 );
 
 export async function getProductById(id: number) {
@@ -1107,8 +1139,8 @@ export async function getProductById(id: number) {
 
 ```typescript
 // app/api/contact/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -1119,20 +1151,20 @@ const contactSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // 验证数据
     const validatedData = contactSchema.parse(body);
 
     // 这里可以添加发送邮件、保存到数据库等逻辑
-    console.log('Contact form submitted:', validatedData);
+    console.log("Contact form submitted:", validatedData);
 
     return NextResponse.json(
-      { success: true, message: '感谢您的联系，我们会尽快回复' },
+      { success: true, message: "感谢您的联系，我们会尽快回复" },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: '表单提交失败，请重试' },
+      { success: false, message: "表单提交失败，请重试" },
       { status: 400 }
     );
   }
@@ -1194,7 +1226,7 @@ export async function POST(request: NextRequest) {
 
 ```tsx
 // 使用 Next.js Image 组件
-import Image from 'next/image';
+import Image from "next/image";
 
 export function OptimizedImage() {
   return (
@@ -1250,23 +1282,23 @@ export function OptimizedImage() {
 ### Next.js 配置 (next.config.ts)
 
 ```typescript
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // 图片优化
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname: "**",
       },
     ],
   },
 
   // 国际化
   i18n: {
-    locales: ['en', 'zh-CN'],
-    defaultLocale: 'zh-CN',
+    locales: ["en", "zh-CN"],
+    defaultLocale: "zh-CN",
   },
 
   // 性能优化
@@ -1318,15 +1350,15 @@ vercel deploy --prod
 
 ## 📊 项目实施时间表
 
-| 阶段 | 任务 | 时间 |
-|------|------|------|
-| 1 | 项目初始化和基础设置 | 1-2 天 |
-| 2 | 创建核心组件 (Header, Hero, Footer) | 3-4 天 |
-| 3 | 实现数据获取和 API 路由 | 2-3 天 |
-| 4 | 响应式设计测试与优化 | 2-3 天 |
-| 5 | SEO 和性能优化 | 1-2 天 |
-| 6 | 测试和 QA | 2-3 天 |
-| 7 | 部署和上线 | 1 天 |
+| 阶段 | 任务                                | 时间   |
+| ---- | ----------------------------------- | ------ |
+| 1    | 项目初始化和基础设置                | 1-2 天 |
+| 2    | 创建核心组件 (Header, Hero, Footer) | 3-4 天 |
+| 3    | 实现数据获取和 API 路由             | 2-3 天 |
+| 4    | 响应式设计测试与优化                | 2-3 天 |
+| 5    | SEO 和性能优化                      | 1-2 天 |
+| 6    | 测试和 QA                           | 2-3 天 |
+| 7    | 部署和上线                          | 1 天   |
 
 **总计**: ~14-18 天
 
@@ -1352,5 +1384,4 @@ vercel deploy --prod
 
 ---
 
-**更新日期**: 2024年2月12日 | **版本**: 1.0 | **状态**: 待审核
-
+**更新日期**: 2024 年 2 月 12 日 | **版本**: 1.0 | **状态**: 待审核

@@ -35,7 +35,7 @@
         <div class="header-right">
           <el-dropdown @command="handleCommand">
             <span class="user-info">
-              <el-avatar :size="30" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+              <el-avatar :size="30" :src="userStore.state.user?.avatar_url || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'" />
               <span class="username">{{ userStore.state.user?.nickname || userStore.state.user?.email || '管理员' }}</span>
               <el-icon><ArrowDown /></el-icon>
             </span>

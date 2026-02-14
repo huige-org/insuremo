@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+
+export const revalidate = 120;
+
 import {
   PageLayout,
   Breadcrumb,
@@ -47,7 +50,6 @@ export default async function VideoDetailPage({ params }: Props) {
     <PageLayout
       breadcrumb={<Breadcrumb items={breadcrumbItems} />}
       title={data.title}
-      subtitle={data.description || undefined}
       maxWidth="2xl"
     >
       {data.video_url && (
@@ -89,6 +91,13 @@ export default async function VideoDetailPage({ params }: Props) {
             </span>
           )}
         </div>
+        {data.description && (
+          <div
+            className="rich-content"
+            style={{ marginTop: '1.5rem' }}
+            dangerouslySetInnerHTML={{ __html: data.description }}
+          />
+        )}
       </Section>
     </PageLayout>
   );

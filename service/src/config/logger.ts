@@ -5,10 +5,7 @@ import path from 'path';
 
 const { combine, timestamp, json, errors, printf, colorize } = winston.format;
 
-const isVercel = !!process.env.VERCEL;
-
-// In Vercel, skip file logging entirely to avoid EROFS error
-const enableFileLogging = !isVercel && env.NODE_ENV !== 'test';
+const logDir = path.resolve(env.LOG_DIR);
 
 const consoleFormat = printf(({ level, message, timestamp, ...metadata }) => {
   let msg = `${timestamp} [${level}]: ${message}`;
@@ -19,46 +16,35 @@ const consoleFormat = printf(({ level, message, timestamp, ...metadata }) => {
 });
 
 const createTransports = (): winston.transport[] => {
-  const transports: winston.transport[] = [];
+  const transports: winston.transport[] = [
+    new DailyRotateFile({
+      filename: path.join(logDir, 'error-%DATE%.log'),
+      datePattern: 'YYYY-MM-DD',
+      level: 'error',
+      maxSize: '20m',
+      maxFiles: '14d',
+      zippedArchive: true,
+    }),
+    new DailyRotateFile({
+      filename: path.join(logDir, 'combined-%DATE%.log'),
+      datePattern: 'YYYY-MM-DD',
+      maxSize: '20m',
+      maxFiles: '30d',
+      zippedArchive: true,
+    }),
+  ];
 
-  // Only use file logging in non-Vercel environments
-  if (enableFileLogging) {
-    const logDir = path.resolve(env.LOG_DIR);
-    try {
-      transports.push(
-        new DailyRotateFile({
-          filename: path.join(logDir, 'error-%DATE%.log'),
-          datePattern: 'YYYY-MM-DD',
-          level: 'error',
-          maxSize: '20m',
-          maxFiles: '14d',
-          zippedArchive: true,
-        })
-      );
-      transports.push(
-        new DailyRotateFile({
-          filename: path.join(logDir, 'combined-%DATE%.log'),
-          datePattern: 'YYYY-MM-DD',
-          maxSize: '20m',
-          maxFiles: '30d',
-          zippedArchive: true,
-        })
-      );
-    } catch (error) {
-      console.warn('File logging disabled:', error);
-    }
+  if (env.NODE_ENV !== 'production') {
+    transports.push(
+      new winston.transports.Console({
+        format: combine(
+          colorize(),
+          timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+          consoleFormat
+        ),
+      })
+    );
   }
-
-  // Always add console transport
-  transports.push(
-    new winston.transports.Console({
-      format: combine(
-        colorize(),
-        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        consoleFormat
-      ),
-    })
-  );
 
   return transports;
 };

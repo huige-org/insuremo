@@ -13,6 +13,7 @@
             <el-avatar :size="120" :src="form.avatar_url || defaultAvatar" />
             <el-upload
               class="avatar-upload"
+              accept="image/*"
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
               :http-request="handleAvatarUpload"
@@ -78,13 +79,24 @@ const rules = {
   ]
 }
 
-onMounted(() => {
-  const user = userStore.state.user
-  if (user) {
-    form.email = user.email || ''
-    form.full_name = user.full_name || ''
-    form.phone = user.phone || ''
-    form.avatar_url = user.avatar_url || ''
+onMounted(async () => {
+  try {
+    const res = await profileApi.getProfile()
+    const user = res.data?.user || res.user
+    if (user) {
+      form.email = user.email || ''
+      form.full_name = user.full_name || ''
+      form.phone = user.phone || ''
+      form.avatar_url = user.avatar_url || ''
+    }
+  } catch (error) {
+    const user = userStore.state.user
+    if (user) {
+      form.email = user.email || ''
+      form.full_name = user.full_name || ''
+      form.phone = user.phone || ''
+      form.avatar_url = user.avatar_url || ''
+    }
   }
 })
 
