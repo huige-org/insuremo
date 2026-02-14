@@ -12,7 +12,7 @@
     "sourceMap": false,
     "declaration": false,
     "outDir": "./dist",
-    "rootDir": ".",
+    "rootDir": "src",
     "noImplicitAny": false,
     "noImplicitThis": false,
     "strictNullChecks": false

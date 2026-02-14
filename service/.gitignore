@@ -5,10 +5,11 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 yarn.lock
-
+nul
 # Build output
 
 build/
+dist/
 *.tsbuildinfo
 
 # Logs
@@ -54,6 +55,7 @@ Thumbs.db
 *.sqlite3
 
 # Docker
+/docker/
 .dockerignore
 
 # Misc
