@@ -61,16 +61,7 @@ export default function ContentGrid({
                   className={`${styles.videoThumbnail} ${styles.consistentLayout}`}
                 >
                   <img
-                    srcSet={`
-                      https://insuremo.com/en/wp-content/uploads/sites/7/2025/06/Insurtech-Insights-Woody-1536x962-1-200x125.png 200w,
-                      https://insuremo.com/en/wp-content/uploads/sites/7/2025/06/Insurtech-Insights-Woody-1536x962-1-300x188.png 300w,
-                      https://insuremo.com/en/wp-content/uploads/sites/7/2025/06/Insurtech-Insights-Woody-1536x962-1-400x250.png 400w,
-                      https://insuremo.com/en/wp-content/uploads/sites/7/2025/06/Insurtech-Insights-Woody-1536x962-1-768x481.png 768w,
-                      https://insuremo.com/en/wp-content/uploads/sites/7/2025/06/Insurtech-Insights-Woody-1536x962-1-1024x641.png 1024w,
-                      https://insuremo.com/en/wp-content/uploads/sites/7/2025/06/Insurtech-Insights-Woody-1536x962-1-1536x962.png 1536w
-                    `}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    src="https://insuremo.com/en/wp-content/uploads/sites/7/2025/06/Insurtech-Insights-Woody-1536x962-1-400x250.png"
+                    src={item.image}
                     alt={item.title}
                     className={styles.image}
                     loading="lazy"
@@ -97,15 +88,6 @@ export default function ContentGrid({
                 // 普通图片 - 保持一致布局
                 <div className={styles.consistentLayout}>
                   <img
-                    srcSet={`
-                      ${item.image.replace(".png", "-200x125.png")} 200w,
-                      ${item.image.replace(".png", "-300x188.png")} 300w,
-                      ${item.image.replace(".png", "-400x250.png")} 400w,
-                      ${item.image.replace(".png", "-768x481.png")} 768w,
-                      ${item.image.replace(".png", "-1024x641.png")} 1024w,
-                      ${item.image} 1536w
-                    `}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     src={item.image}
                     alt={item.title}
                     className={styles.image}
