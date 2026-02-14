@@ -21,8 +21,8 @@ coverage
 # Environment
 .env
 .env.local
-.env.production
-.env.development
+# .env.production
+# .env.development
 .env.production.local
 .env.development.local
 
