@@ -1,15 +1,15 @@
-import { Request, Response, NextFunction } from 'express';
-import crypto from 'crypto';
-import { logger } from '../config/logger';
+import { Request, Response, NextFunction } from "express";
+import crypto from "crypto";
+import { logger } from "../config/logger";
 
 export const requestLogger = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const start = Date.now();
 
-  res.on('finish', () => {
+  res.on("finish", () => {
     const duration = Date.now() - start;
     const logData = {
       method: req.method,
@@ -17,9 +17,9 @@ export const requestLogger = (
       statusCode: res.statusCode,
       duration: `${duration}ms`,
       ip: req.ip,
-      userAgent: req.get('user-agent'),
+      userAgent: req.get("user-agent"),
       userId: req.user?.id,
-      requestId: req.get('x-request-id'),
+      requestId: req.get("x-request-id"),
     };
 
     if (res.statusCode >= 500) {
@@ -37,9 +37,9 @@ export const requestLogger = (
 export const requestId = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
-  const requestId = req.get('x-request-id') || crypto.randomUUID();
-  res.setHeader('x-request-id', requestId);
+  const requestId = req.get("x-request-id") || crypto.randomUUID();
+  res.setHeader("x-request-id", requestId);
   next();
 };
