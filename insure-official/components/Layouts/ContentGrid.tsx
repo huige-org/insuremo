@@ -41,13 +41,15 @@ export default function ContentGrid({
       }`}
     >
       {items.map((item) => (
-        <a
-          href={item.link || ""}
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
           key={item.id}
           className={`${styles.card} ${styles.consistentCard}`}
-          onClick={() => onCardClick?.(item)}
+          onClick={() => {
+            if (item.link) {
+              window.open(item.link, '_blank')
+            }
+            onCardClick?.(item)
+          }}
         >
           {item.image && (
             <div
@@ -137,7 +139,7 @@ export default function ContentGrid({
               </p>
             )}
           </div>
-        </a>
+        </div>
       ))}
     </div>
   );
