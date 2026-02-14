@@ -20,6 +20,18 @@ const routes = [
         meta: { title: '首页', icon: 'House' }
       },
       {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('../views/Profile.vue'),
+        meta: { title: '个人中心', icon: 'User' }
+      },
+      {
+        path: 'password',
+        name: 'Password',
+        component: () => import('../views/Password.vue'),
+        meta: { title: '修改密码', icon: 'Lock' }
+      },
+      {
         path: 'content',
         name: 'Content',
         redirect: '/content/videos',

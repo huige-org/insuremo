@@ -250,6 +250,34 @@ export class AuthService {
 
     logger.info(`Password changed for user: ${userId}`);
   }
+
+  async updateProfile(
+    userId: string,
+    data: { full_name?: string; phone?: string; avatar_url?: string }
+  ): Promise<{ id: string; email: string; full_name: string; phone: string; avatar_url: string }> {
+    const updateData: Record<string, any> = {
+      updated_at: new Date().toISOString(),
+    };
+
+    if (data.full_name !== undefined) updateData.full_name = data.full_name;
+    if (data.phone !== undefined) updateData.phone = data.phone;
+    if (data.avatar_url !== undefined) updateData.avatar_url = data.avatar_url;
+
+    const { data: user, error } = await this.supabase
+      .from('profiles')
+      .update(updateData)
+      .eq('id', userId)
+      .select('id, email, full_name, phone, avatar_url')
+      .single();
+
+    if (error) {
+      logger.error('Update profile error:', error);
+      throw new AppError('Failed to update profile', 500, 'UPDATE_PROFILE_FAILED');
+    }
+
+    logger.info(`Profile updated for user: ${userId}`);
+    return user;
+  }
 }
 
 export const authService = new AuthService();

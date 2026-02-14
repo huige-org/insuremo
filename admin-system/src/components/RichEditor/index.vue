@@ -65,7 +65,7 @@ const editorConfig = {
   MENU_CONF: {
     // 上传图片配置
     uploadImage: {
-      server: `${API_BASE}/upload/image`,
+      server: `${API_BASE}/upload/image?editor=wangeditor`,
       fieldName: 'file',
       maxFileSize: 5 * 1024 * 1024, // 5MB
       maxNumberOfFiles: 10,

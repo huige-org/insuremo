@@ -487,8 +487,9 @@ const beforeUpload = (file) => {
 const handleCoverUpload = async ({ file }) => {
   try {
     const res = await uploadApi.uploadImage(file)
-    if (res.success) {
-      form.cover = res.data.url
+    const url = res.errno === 0 ? res.data?.url : res.url
+    if (url) {
+      form.cover = url
       ElMessage.success('上传成功')
     } else {
       ElMessage.error(res.message || '上传失败')

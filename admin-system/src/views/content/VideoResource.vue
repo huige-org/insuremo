@@ -414,8 +414,9 @@ const beforeUpload = (file) => {
 const handleCoverUpload = async ({ file }) => {
   try {
     const res = await uploadApi.uploadImage(file)
-    if (res.success) {
-      form.cover_url = res.data.url
+    const url = res.errno === 0 ? res.data?.url : res.url
+    if (url) {
+      form.cover_url = url
       ElMessage.success('上传成功')
     } else {
       ElMessage.error(res.message || '上传失败')
@@ -445,8 +446,9 @@ const beforeVideoUpload = (file) => {
 const handleVideoUpload = async ({ file }) => {
   try {
     const res = await uploadApi.uploadVideo(file)
-    if (res.success) {
-      form.video_url = res.data.url
+    const url = res.success ? res.data.url : res.url
+    if (url) {
+      form.video_url = url
       ElMessage.success('视频上传成功')
     } else {
       ElMessage.error(res.message || '上传失败')

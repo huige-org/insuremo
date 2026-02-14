@@ -6,6 +6,7 @@ import {
   logout,
   getCurrentUser,
   changePassword,
+  updateProfile,
 } from '../controllers/auth.controller';
 import { authenticate, optionalAuth } from '../middlewares/auth.middleware';
 import { authRateLimiter } from '../middlewares/rate-limit.middleware';
@@ -172,5 +173,35 @@ router.get('/me', authenticate, getCurrentUser);
  *         description: Unauthorized
  */
 router.post('/change-password', authenticate, changePassword);
+
+/**
+ * @swagger
+ * /api/v1/auth/profile:
+ *   put:
+ *     summary: Update profile
+ *     tags: [Authentication]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               full_name:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               avatar_url:
+ *                 type: string
+ *                 format: url
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *       401:
+ *       description: Unauthorized
+ */
+router.put('/profile', authenticate, updateProfile);
 
 export default router;

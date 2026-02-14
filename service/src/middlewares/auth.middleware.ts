@@ -11,6 +11,9 @@ declare global {
       user?: {
         id: string;
         email: string;
+        full_name?: string;
+        avatar_url?: string;
+        phone?: string;
         roles: string[];
       };
     }
@@ -74,6 +77,9 @@ export const authenticate = async (
     req.user = {
       id: user.id,
       email: user.email,
+      full_name: user.full_name,
+      avatar_url: user.avatar_url,
+      phone: user.phone,
       roles,
     };
 

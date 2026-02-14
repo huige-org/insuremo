@@ -67,15 +67,21 @@ export const uploadImage = asyncHandler(async (req: Request, res: Response): Pro
       .from('uploads')
       .getPublicUrl(fileName);
 
-    // 返回 WangEditor 期望的响应格式
-    res.status(200).json({
-      errno: 0,
-      data: {
-        url: publicUrl,
-        alt: file.originalname,
-        href: publicUrl,
-      }
-    });
+    const result = {
+      url: publicUrl,
+      alt: file.originalname,
+      href: publicUrl,
+    };
+
+    // 如果是富文本编辑器上传，返回 WangEditor 期望的格式
+    if (req.query.editor === 'wangeditor') {
+      res.status(200).json({
+        errno: 0,
+        data: result
+      });
+    } else {
+      res.status(200).json(result);
+    }
   } catch (error) {
     logger.error('Upload image error:', error);
     res.status(200).json({

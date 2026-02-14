@@ -202,3 +202,11 @@ export const uploadApi = {
     return uploadRequest("/upload/video", formData);
   },
 };
+
+export const profileApi = {
+  getProfile: () => request("/auth/me"),
+  updateProfile: (data) =>
+    request("/auth/profile", { method: "PUT", body: JSON.stringify(data) }),
+  changePassword: (data) =>
+    request("/auth/change-password", { method: "POST", body: JSON.stringify(data) }),
+};

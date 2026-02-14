@@ -33,7 +33,7 @@
       <el-table :data="tableData" style="width: 100%" v-loading="loading">
         <el-table-column type="index" width="50" label="序号" />
         <el-table-column prop="email" label="邮箱" min-width="180" />
-        <el-table-column prop="nickname" label="昵称" min-width="120" />
+        <el-table-column prop="full_name" label="昵称" min-width="120" />
         <el-table-column prop="phone" label="手机号" width="130" />
         <el-table-column prop="roles" label="角色" min-width="150">
           <template #default="{ row }">

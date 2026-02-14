@@ -31,6 +31,12 @@ const changePasswordSchema = z.object({
   newPassword: passwordSchema,
 });
 
+const updateProfileSchema = z.object({
+  full_name: z.string().optional(),
+  phone: z.string().optional(),
+  avatar_url: z.string().url().optional(),
+});
+
 export const login = asyncHandler(async (req: Request, res: Response): Promise<void> => {
   const result = loginSchema.safeParse(req.body);
   if (!result.success) {
@@ -102,4 +108,21 @@ export const changePassword = asyncHandler(async (req: Request, res: Response): 
     result.data.newPassword
   );
   successResponse(res, { message: 'Password changed successfully' });
+});
+
+export const updateProfile = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user?.id;
+  if (!userId) {
+    badRequestResponse(res, 'User not authenticated');
+    return;
+  }
+
+  const result = updateProfileSchema.safeParse(req.body);
+  if (!result.success) {
+    badRequestResponse(res, 'Invalid request body');
+    return;
+  }
+
+  const user = await authService.updateProfile(userId, result.data);
+  successResponse(res, { user });
 });

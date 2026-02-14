@@ -51,11 +51,21 @@ export default async function WhitepaperDetailPage({ params }: Props) {
     >
       {data.cover_url && (
         <Section padding="md">
-          <div style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+          <div style={{ 
+            borderRadius: "var(--radius-lg)", 
+            overflow: "hidden",
+            maxHeight: "400px",
+          }}>
             <img
               src={data.cover_url}
               alt={data.title}
-              style={{ width: "100%", height: "auto", display: "block" }}
+              style={{ 
+                width: "100%", 
+                height: "100%",
+                maxHeight: "400px",
+                objectFit: "cover", 
+                display: "block" 
+              }}
             />
           </div>
         </Section>
