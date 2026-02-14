@@ -2,7 +2,6 @@
   "$schema": "https://railway.com/railway.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "npm run build",
     "outputDirectory": "dist"
   },
   "deploy": {

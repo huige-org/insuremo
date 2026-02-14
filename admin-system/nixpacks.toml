@@ -1,0 +1,6 @@
+[nodejs]
+version = "22"
+
+[nixpacks]
+buildCommand = "npm run build"
+outputDirectory = "dist"
