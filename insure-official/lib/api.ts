@@ -51,8 +51,11 @@ export interface Case {
 
 export const publicApi = {
   getArticles: () => fetchAPI<Article[]>('/public/articles'),
+  getArticleById: (id: string) => fetchAPI<Article>(`/public/articles/${id}`),
   getVideos: () => fetchAPI<Video[]>('/public/videos'),
+  getVideoById: (id: string) => fetchAPI<Video>(`/public/videos/${id}`),
   getCases: () => fetchAPI<Case[]>('/public/cases'),
+  getCaseById: (id: string) => fetchAPI<Case>(`/public/cases/${id}`),
 };
 
 export function transformArticle(item: Article) {
@@ -61,7 +64,7 @@ export function transformArticle(item: Article) {
     title: item.title,
     description: item.summary || '',
     image: item.cover_url || undefined,
-    link: '#',
+    link: `/resources/whitepapers/${item.id}`,
     linkText: 'Read More',
   };
 }
@@ -72,7 +75,7 @@ export function transformVideo(item: Video) {
     title: item.title,
     description: item.description || '',
     image: item.cover_url || undefined,
-    link: item.video_url || '#',
+    link: `/resources/videos/${item.id}`,
     linkText: 'Watch Video',
     isVideo: true,
   };
@@ -84,7 +87,7 @@ export function transformCase(item: Case) {
     title: item.title,
     description: item.summary ? item.summary.replace(/<[^>]*>/g, '').slice(0, 150) : '',
     image: item.cover_url || undefined,
-    link: '#',
+    link: `/resources/case-studies/${item.id}`,
     linkText: 'Read case study',
   };
 }
