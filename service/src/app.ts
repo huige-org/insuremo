@@ -48,22 +48,14 @@ app.use(
         ],
       },
     },
-  })
+  }),
 );
 
 app.use(
   cors({
-    origin:
-      env.NODE_ENV === "production"
-        ? [
-            ...(process.env.CORS_ORIGIN ? [process.env.CORS_ORIGIN] : []),
-            ...(process.env.VERCEL_URL
-              ? [`https://${process.env.VERCEL_URL}`]
-              : []),
-          ]
-        : true,
+    origin: true,
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json({ limit: "10mb" }));
@@ -121,7 +113,7 @@ if (!isVercel) {
       explorer: true,
       customCss: ".swagger-ui .topbar { display: none }",
       customSiteTitle: "Insure Admin API Docs",
-    })
+    }),
   );
 }
 
