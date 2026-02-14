@@ -51,12 +51,14 @@
             {{ formatDateTime(row.created_at) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column label="操作" width="340" fixed="right">
           <template #default="{ row }">
             <el-button link type="primary" @click="handleView(row)">查看</el-button>
             <el-button link type="primary" @click="handleEdit(row)">编辑</el-button>
             <el-button link type="warning" @click="handleClone(row)">克隆</el-button>
             <el-button link type="success" @click="handlePreview(row)">预览</el-button>
+            <el-button v-if="row.status === 'published'" link type="warning" @click="handleOffline(row)">下架</el-button>
+            <el-button v-else link type="success" @click="handlePublish(row)">发布</el-button>
             <el-button link type="danger" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
@@ -408,6 +410,26 @@ const handleDelete = (row) => {
       ElMessage.error(error.message || '删除失败')
     }
   })
+}
+
+const handlePublish = async (row) => {
+  try {
+    await caseApi.update(row.id, { status: 'published' })
+    ElMessage.success('发布成功')
+    fetchData()
+  } catch (error) {
+    ElMessage.error(error.message || '发布失败')
+  }
+}
+
+const handleOffline = async (row) => {
+  try {
+    await caseApi.update(row.id, { status: 'offline' })
+    ElMessage.success('下架成功')
+    fetchData()
+  } catch (error) {
+    ElMessage.error(error.message || '下架失败')
+  }
 }
 
 const handleClone = async (row) => {
